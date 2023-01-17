@@ -1,0 +1,17 @@
+DESCRIPTION >
+	API Endpoint to retrieve the geoname_ids that contain a point passed by its lat and lon.
+It needs to run the `pointInPolygon` function to all the rows in __geonames__.
+
+
+NODE polygon_ids
+DESCRIPTION >
+    Return just the geoname ids that contain the passed coords
+
+SQL >
+
+    %
+    SELECT groupArray(geoname_id) geoname_ids
+    FROM geonames
+    WHERE pointInPolygon(({{ Float32(lon, 12.5) }}, {{ Float32(lat, 41.9) }}), polygon)
+
+

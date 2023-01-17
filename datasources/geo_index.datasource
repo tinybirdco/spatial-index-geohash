@@ -1,0 +1,10 @@
+# Data Source created from Pipe 'geo_index_mv'
+DESCRIPTION >
+    Each __geohash__ contains an __array of the geoname ids__ that are contained in it
+
+SCHEMA >
+    `geohash` String,
+    `geoname_id` AggregateFunction(groupArray, Int32)
+
+ENGINE "AggregatingMergeTree"
+ENGINE_SORTING_KEY "geohash"

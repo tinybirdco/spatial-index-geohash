@@ -1,0 +1,17 @@
+NODE create_index
+SQL >
+
+    WITH
+        arrayFlatten(polygon) AS coordinates,
+        (arrayReduce('min', arrayMap(x -> multiIf((x.1) > 180, (x.1) - 360, (x.1) < -180, (x.1) + 360, x.1), coordinates)), arrayReduce('max', arrayMap(x -> multiIf((x.1) > 180, (x.1) - 360, (x.1) < -180, (x.1) + 360, x.1), coordinates)), arrayReduce('min', arrayMap(x -> (x.2), coordinates)), arrayReduce('max', arrayMap(x -> (x.2), coordinates))) AS bounds
+    SELECT
+        arrayJoin(geohashesInBox(toFloat32(bounds.1), bounds.3, toFloat32(bounds.2), bounds.4, 3)) AS geohash,
+        groupArrayState(geoname_id) AS geoname_id
+    FROM geonames
+    GROUP BY geohash
+
+TYPE materialized
+DATASOURCE geo_index
+ENGINE "AggregatingMergeTree"
+ENGINE_SORTING_KEY "geohash"
+

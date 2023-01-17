@@ -1,0 +1,10 @@
+DESCRIPTION >
+    Check [geonames.org](https://www.geonames.org/) for more info
+
+SCHEMA >
+    `geoname_id` Int32,
+    `polygon` Array(Array(Tuple(Float32, Float32)))
+
+ENGINE "MergeTree"
+ENGINE_SORTING_KEY "geoname_id, intHash32(geoname_id)"
+ENGINE_SAMPLING_KEY "intHash32(geoname_id)"
