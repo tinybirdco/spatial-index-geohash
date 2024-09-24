@@ -12,6 +12,4 @@ SQL >
 
 TYPE materialized
 DATASOURCE geo_index
-ENGINE "AggregatingMergeTree"
-ENGINE_SORTING_KEY "geohash"
 
