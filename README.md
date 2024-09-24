@@ -19,8 +19,6 @@ Then download the geonames sample, push the project, and append the downloaded c
 curl https://storage.googleapis.com/geonames-index/geonames.csv > geonames.csv
 tb push
 tb datasource append geonames geonames.csv
-TB_HOST=$('cat .tinyb | jq ".host" -r')
-TB_TOKEN=$('cat .tinyb | jq ".token" -r')
 ```
 
 And then check the endpoints `api_which_polygons_raw.json?lon=0&lat=0` and `api_which_polygons_index.json?lon=0&lat=0` to see the differences.
